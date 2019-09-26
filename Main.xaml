@@ -1,0 +1,303 @@
+<Controls:MetroWindow
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"		
+		xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+		xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"   
+        Title="Gallery Stats" 
+        Name="MainPanel" 
+		Height="720" 
+		Width="895"
+		ResizeMode="CanMinimize"
+		WindowStyle="None" 	
+	    BorderBrush="Blue"
+		GlowBrush="{DynamicResource AccentColorBrush}"	
+		WindowStartupLocation="CenterScreen">
+<!--
+ ResizeMode="CanMinimize"
+/-->	 	  
+	<Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Cobalt.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>	
+
+<!--
+	
+/-->	
+
+<Controls:MetroWindow.RightWindowCommands>
+	<Controls:WindowCommands>
+	   <Button Name="MonBouton" >
+			<iconPacks:PackIconFontAwesome Kind="PaintRollerSolid" ToolTip="Change Theme" />
+         </Button>
+		<Button Name="Option">
+            <iconPacks:PackIconMaterial Kind="Settings" ToolTip="Change options " />
+        </Button>
+	</Controls:WindowCommands>	
+</Controls:MetroWindow.RightWindowCommands>		
+
+	<Grid>
+
+		<StackPanel Orientation="Vertical">							
+			<StackPanel HorizontalAlignment="Center"  Margin="0,5,0,0" Orientation="Horizontal" >							
+			</StackPanel>			
+			
+			<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"  Margin="0,0,0,0">	
+					
+					<StackPanel Orientation="Horizontal" Margin="10,0,10,10" HorizontalAlignment="Center" VerticalAlignment="Center">					
+
+						<GroupBox Name="GAuthors" Header="Authors" VerticalAlignment="Top"  Margin="0,0,0,0"  Width="260" Visibility="Visible">	
+							<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+							<Image  Margin="10" Height="75" Source=".\images\pwshg1.png" HorizontalAlignment="Center"></Image>			
+							<Controls:MetroHeader Name="MAuhtors" Margin="5 5 0 5" Header="Authors Name">
+								<Controls:MetroHeader.HeaderTemplate>
+									<DataTemplate>
+										<StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+											<iconPacks:PackIconMaterial VerticalAlignment="Center" Kind="Account" />
+											<TextBlock Margin="5 0 0 0"
+													VerticalAlignment="Center"
+													Text="{Binding}" />
+										</StackPanel>
+									</DataTemplate>
+								</Controls:MetroHeader.HeaderTemplate>
+									<TextBox Margin="0 5 0 10" Name="TextBox" Controls:TextBoxHelper.Watermark="Three letters minimum (Authors)" Controls:TextBoxHelper.ClearTextButton="True" Width="220" ></TextBox>
+								</Controls:MetroHeader>
+								
+								<Controls:MetroHeader Name="M_Modules" Margin="5 5 0 5" Header="Modules Name" Visibility="Collapsed">
+								<Controls:MetroHeader.HeaderTemplate>
+									<DataTemplate>
+										<StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+											<iconPacks:PackIconOcticons Kind="FileSubmodule" VerticalAlignment="Center" />
+											<TextBlock Margin="5 0 0 0"
+													VerticalAlignment="Center"
+													Text="{Binding}" />
+										</StackPanel>
+									</DataTemplate>
+								</Controls:MetroHeader.HeaderTemplate>
+									<TextBox Margin="0 5 0 10" Name="ModuleList" Controls:TextBoxHelper.Watermark="Three letters minimum (Modules)" Controls:TextBoxHelper.ClearTextButton="True" Width="220" ></TextBox>
+								</Controls:MetroHeader>
+
+							<ComboBox Name="Authors" SelectedIndex="0" Text="Choose" Height="25" Width="220" Margin="5,0,0,5"/>
+							<Button Name="Check" Margin="0 15 0 10" Width="80" IsEnabled="False">
+							   <Button.Content>
+									<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+										<iconPacks:PackIconMaterialDesign Kind="Check" Margin="0 2 0 0" Width="23" Foreground="Blue"/>
+										<Label Content="CHECK" />
+									</StackPanel>
+								</Button.Content>
+							</Button>		
+							</StackPanel>											
+						</GroupBox>	
+
+						<GroupBox Name="GStatistic" Header="Statistic" VerticalAlignment="Top"  Margin="10,0,0,0"  Width="300" Visibility="Visible" >	
+							<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">	
+								   <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+								      <Label Content="Modules : " FontSize="13"  />
+								      <ComboBox Name="ModulesList" SelectedIndex="0" Text="Choose" Height="25" Width="150" Visibility="Visible">
+								    </ComboBox>
+							      <Label Name="Smodule" Content="" Visibility="Collapsed"/>
+								   </StackPanel>
+								    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+								      <Label Name="NumMod" Content="Number modules: " FontSize="13"  />
+								      <Label Name="Numbermodules" Content=""/>
+	 							   </StackPanel>
+								    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+								      <Label Name="TAD" Content="Total Average download : " FontSize="13"  />
+								      <Label Name="TAverage" Content=""/>
+	 							   </StackPanel>
+    							    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+								      <Label Content="Full Download: " FontSize="13"  />
+								      <Label Name="FullDownload" Content=""/>
+	 							   </StackPanel>
+								   <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+								      <Label Content="Project URL : " FontSize="13"  />
+									  <Label Name="Project_URL"/>
+								   </StackPanel>
+								   <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+								      <Label Content="Last Update : " FontSize="13"  />
+								      <Label Name="LastUpdate" Content=""/>
+								   </StackPanel>
+								    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+								      <Label Content="Created : " FontSize="13"  />
+								      <Label Name="Created" Content=""/>
+								   </StackPanel>
+								   <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+								      <Label Content="PSEditions : " FontSize="13"  />
+								      		<StackPanel Name="Desktop" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Collapsed">
+												<iconPacks:PackIconFontAwesome Kind="WindowsBrands"  Margin="5 3 5 0" Width="22" Height="22"/>
+											</StackPanel>
+											<StackPanel Name="Core" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Collapsed">
+												<iconPacks:PackIconFontAwesome Kind="WindowsBrands" Margin="5 3 5 0" Width="22" Height="22"/>
+												<iconPacks:PackIconFontAwesome Kind="LinuxBrands" Margin="5 3 5 0"  Width="22" Height="22" />
+												<iconPacks:PackIconFontAwesome Kind="AppleBrands" Margin="5 3 5 0"  Width="22" Height="22"/>
+											</StackPanel>
+								      		<StackPanel Name="NA" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Collapsed">
+												<iconPacks:PackIconModern Kind="Na"  Margin="5 3 5 0" Width="22" Height="22" />
+											</StackPanel>		
+								   </StackPanel>
+										<StackPanel Margin="20 0 0 0" Orientation="Horizontal" HorizontalAlignment="Center" >
+								   			<Button Name="Graph" Margin="0 5 0 0" Width="80"  Height="35" Visibility="Hidden">
+											   <Button.Content>
+													<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+														<iconPacks:PackIconEntypo Kind="CircularGraph" Margin="0 2 0 0" Width="23" Foreground="Blue"/>
+														<Label Content="GRAPH" />
+													</StackPanel>
+												</Button.Content>
+											</Button>		
+											<Button Name="Download" Margin="10 5 0 2" Width="100" Height="35" Visibility="Hidden">
+												<Button.Content>
+													<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+														<iconPacks:PackIconFeatherIcons Kind="Download" Width="23"  Foreground="Blue"/>
+														<Label Content="DOWNLOAD" />
+													</StackPanel>
+												</Button.Content>
+											</Button>		
+										</StackPanel>
+							</StackPanel>											
+						</GroupBox>		
+						<GroupBox  Name="GraphOption" Header="Graph Option" VerticalAlignment="Top"  Margin="10,0,0,0"  Width="290" Visibility="Collapsed">	
+						<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">		
+							<StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+								      <Label Content="InnerRadius : " FontSize="13"  />
+									  <Slider Name="Slider1" Width="150"
+											Margin="4"
+											LargeChange="10"
+											Maximum="150"
+											Minimum="0"
+											Orientation="Horizontal"
+											SmallChange="1"
+											TickFrequency="5"
+											TickPlacement="BottomRight"
+											Value="80" />							
+							</StackPanel>
+							<StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+								<Label Content="If the powershell module has more than 15 versions, " FontSize="12" FontStyle="Italic" />
+								<Label Content="the graph represents the last 10 versions " FontSize="12" FontStyle="Italic" Margin="0 -5 0 0" />
+							</StackPanel>
+							<StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+						</StackPanel>
+								   
+							</StackPanel>											
+						</GroupBox>		
+						
+					</StackPanel>	
+							<GroupBox Name="GGraph" Header="Graph" VerticalAlignment="Top"   Margin="5" Width="Auto" Height="360" Visibility="Visible"  >						
+					   		<StackPanel Margin="5,5,5,5"  VerticalAlignment="Top" Orientation="Vertical" HorizontalAlignment="Center">
+					
+            			<wpf:PieChart Name="Doughnut"  Width="350"  Height="350"  LegendLocation="Right" InnerRadius="{Binding ElementName=Slider1, Path=Value}" >
+							<wpf:PieChart.ChartLegend >
+            					<wpf:DefaultLegend  BulletSize="20"></wpf:DefaultLegend>
+            				</wpf:PieChart.ChartLegend>
+            				<wpf:PieChart.DataTooltip>
+								<wpf:DefaultTooltip BulletSize="20"></wpf:DefaultTooltip>
+							</wpf:PieChart.DataTooltip>
+            			</wpf:PieChart>
+					
+		</StackPanel>					
+						   </GroupBox>
+						   
+						   <GroupBox Name="GNew_Module" Header="Gallery Info" VerticalAlignment="Top"   Margin="5 5 5 5" Width="670" Height="Auto" Visibility="Collapsed"  >						
+					   		<StackPanel Margin="5,5,5,0"  VerticalAlignment="Top" Orientation="Vertical" HorizontalAlignment="Center">
+					           <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"  Margin="0 0 0 10">
+ 						      		<DatePicker Name="Calendar" Width="200" Height="35"
+                            Margin="0 0 0 0"
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Stretch"
+                            Controls:TextBoxHelper.UseFloatingWatermark="True"
+                            Controls:TextBoxHelper.Watermark="Select a date"
+                            Controls:TextBoxHelper.WatermarkAlignment="Center" />
+                             
+								    <Button Name="GNCheck" Width="100" Height="35" Margin="40 10 0 5">
+										<Button.Content>
+											<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+												<iconPacks:PackIconMaterialDesign Kind="Check" Margin="0 2 0 0" Width="23" Foreground="Blue"/>
+												<Label Content="CHECK" />
+											</StackPanel>
+										</Button.Content>
+									</Button>
+									<Button Name="GNInfo" Width="100" Height="35" Margin="40 10 0 5" Visibility="Collapsed">
+										<Button.Content>
+											<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+												<iconPacks:PackIconMaterialDesign Kind="Info" Margin="0 2 0 0" Width="25" Foreground="Blue"/>
+												<Label Content="WebSite" />
+											</StackPanel>
+										</Button.Content>
+									</Button>
+								    </StackPanel>
+										<StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Visible" Margin="0 0 0 10">
+												<CheckBox  Margin="0 5 0 0" Name="PreRelease"></CheckBox>
+												<Label Margin="0 10 0 0 ">PreRelease</Label>
+										</StackPanel>		
+
+								    	<StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Collapsed" Margin="0 0 0 10">
+												<CheckBox  Margin="0 5 0 0" Name="DDesktop"></CheckBox>
+												<iconPacks:PackIconFontAwesome Kind="WindowsBrands"  Margin="5 10 0 0" Width="22" Height="22"/>
+												<Label Margin="0 10 0 0 ">PSEdition_Desktop</Label>
+											
+											<StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Collapsed">
+											<CheckBox  Margin="30 10 0 0" Name="DCore"></CheckBox>
+												<iconPacks:PackIconFontAwesome Kind="LinuxBrands" Margin="5 10 0 0"  Width="23" Height="23" />
+												<Label Margin="0 10 0 0 ">PSEdition_Core</Label>
+											</StackPanel>
+											
+											</StackPanel>
+					           <DataGrid
+                                          Name="New_Module"
+                                          Width="Auto"
+                                          Height="340"
+                                          Margin="2,2,2,2"
+                                          ColumnWidth="150"
+                                          ItemsSource="{Binding}"
+                                          SelectionMode="Single">
+                                          <DataGrid.Columns>
+                                             <DataGridTextColumn Binding="{Binding Authors}" Header="Authors"/>
+                                             <DataGridTextColumn Binding="{Binding Title}" Header="Title"/>
+                                             <DataGridTextColumn Binding="{Binding Version}" Header="Version"/>
+                                             <DataGridTextColumn Binding="{Binding ProjectUrl}" Header="Project Url"/>
+                                          </DataGrid.Columns>
+                                      </DataGrid>
+									  <Expander  Margin="10" Header="Result" Name="Result" Visibility="Collapsed">
+										<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
+			  						  		<StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" >
+												<iconPacks:PackIconMaterial Kind="Autorenew" Margin="5 10 0 0"  Width="32" Height="32" />
+												<Label Margin="0 10 0 10 " FontWeight="Bold" FontSize="14">Update Modules</Label>
+												<Label Name="MUpdates" FontWeight="Bold" FontSize="13" Margin="0 10 25 0 "/>
+											</StackPanel>
+			  						  		<StackPanel  Orientation="Horizontal" HorizontalAlignment="Left">
+												<iconPacks:PackIconModern Kind="LayerAdd" Margin="5 10 0 0"  Width="32" Height="32" />
+												<Label Margin="0 10 0 0 " FontWeight="Bold" FontSize="14" >New Modules</Label>
+												<Label Name="NewM" FontWeight="Bold" FontSize="13" Margin="0 10 0 0 "/>
+
+											</StackPanel>
+										</StackPanel>
+										</Expander>
+		                  </StackPanel>		
+
+
+
+						   </GroupBox>
+			           
+			</StackPanel>
+		
+		</StackPanel>
+	    <Controls:Flyout Name="Flyout" Header="Option" Position="Right" Width="330" Theme="Dark" Background="#A2717171" AreAnimationsEnabled="True" AnimateOpacity="True">
+         <StackPanel Orientation="Vertical" Margin="10 10 0 0" VerticalAlignment="Top">
+			<StackPanel Orientation="Horizontal" Margin="10 10 0 0" VerticalAlignment="Top">
+				<TextBlock  Margin="0 10 0 15"  Text="Change mode : " FontWeight="Bold" FontSize="14"/>
+				<Controls:ToggleSwitch Name="Switch" OnLabel="Authors" OffLabel="Modules" Style="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" IsChecked="True" Margin="5,10,0,0"/>
+			</StackPanel>
+			<StackPanel Orientation="Horizontal" Margin="10 10 0 0" VerticalAlignment="Top">
+				<TextBlock  Margin="0 10 0 15"  Text="PowerShell Gallery Statistic : " FontWeight="Bold" FontSize="14"/>
+				<Controls:ToggleSwitch Name="FullStats" OnLabel="Show" OffLabel="Hide" Style="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" IsChecked="False" Margin="5,10,0,0"/>
+			</StackPanel>
+        </StackPanel>
+
+    </Controls:Flyout>
+		
+    </Grid>	
+</Controls:MetroWindow>
