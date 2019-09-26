@@ -6,8 +6,8 @@
 		xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"   
         Title="Gallery Stats" 
         Name="MainPanel" 
-		Height="720" 
-		Width="895"
+		SizeToContent="WidthAndHeight"
+		
 		ResizeMode="CanMinimize"
 		WindowStyle="None" 	
 	    BorderBrush="Blue"
@@ -15,6 +15,9 @@
 		WindowStartupLocation="CenterScreen">
 <!--
  ResizeMode="CanMinimize"
+		Height="720" 
+		Width="895"
+
 /-->	 	  
 	<Window.Resources>
         <ResourceDictionary>
