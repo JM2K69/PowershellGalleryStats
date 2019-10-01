@@ -5,19 +5,25 @@
 #
 #================================================================================================================
 
+Try {
+	Import-Module PSGalleryModule -ErrorAction Stop
+} Catch {
+	Throw "Before using this script, please install PSGalleryModule: Install-Module PSGalleryModule"
+}
+
 $Global:Current_Folder = split-path $MyInvocation.MyCommand.Path
 $ProgressPreference = 'SilentlyContinue'
 
 
 [System.Void][System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms')  			
-[System.Void][System.Reflection.Assembly]::LoadWithPartialName('presentationframework') 				
-[System.Void][System.Reflection.Assembly]::LoadFrom("assembly\MahApps.Metro.dll")       				
-[System.Void][System.Reflection.Assembly]::LoadFrom('assembly\MahApps.Metro.IconPacks.dll') 
-[System.Void][System.Reflection.Assembly]::LoadFrom('assembly\MahApps.Metro.IconPacks.Core.dll') 
-[System.Void][System.Reflection.Assembly]::LoadFrom("assembly\LiveCharts.Wpf.dll")       			
-[System.Void][System.Reflection.Assembly]::LoadFrom("assembly\LiveCharts.dll")      
-[System.Void][System.Reflection.Assembly]::LoadFrom("assembly\ControlzEx.dll")     
-[System.Void][System.Reflection.Assembly]::LoadFrom("assembly\Microsoft.Xaml.Behaviors.dll")    
+[System.Void][System.Reflection.Assembly]::LoadWithPartialName('presentationframework')
+[System.Void][System.Reflection.Assembly]::LoadFrom("$Current_Folder\assembly\MahApps.Metro.dll")       				
+[System.Void][System.Reflection.Assembly]::LoadFrom("$Current_Folder\assembly\MahApps.Metro.IconPacks.dll") 
+[System.Void][System.Reflection.Assembly]::LoadFrom("$Current_Folder\assembly\MahApps.Metro.IconPacks.Core.dll") 
+[System.Void][System.Reflection.Assembly]::LoadFrom("$Current_Folder\assembly\LiveCharts.Wpf.dll")       			
+[System.Void][System.Reflection.Assembly]::LoadFrom("$Current_Folder\assembly\LiveCharts.dll")      
+[System.Void][System.Reflection.Assembly]::LoadFrom("$Current_Folder\assembly\ControlzEx.dll")     
+[System.Void][System.Reflection.Assembly]::LoadFrom("$Current_Folder\assembly\Microsoft.Xaml.Behaviors.dll")
 
 
 
