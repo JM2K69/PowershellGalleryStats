@@ -15,14 +15,14 @@ $Global:Current_Folder = split-path $MyInvocation.MyCommand.Path
 $ProgressPreference = 'SilentlyContinue'
 
 
-[System.Void][System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms')  			
+[System.Void][System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms')
 [System.Void][System.Reflection.Assembly]::LoadWithPartialName('presentationframework')
-[System.Void][System.Reflection.Assembly]::LoadFrom("$Current_Folder\assembly\MahApps.Metro.dll")       				
-[System.Void][System.Reflection.Assembly]::LoadFrom("$Current_Folder\assembly\MahApps.Metro.IconPacks.dll") 
-[System.Void][System.Reflection.Assembly]::LoadFrom("$Current_Folder\assembly\MahApps.Metro.IconPacks.Core.dll") 
-[System.Void][System.Reflection.Assembly]::LoadFrom("$Current_Folder\assembly\LiveCharts.Wpf.dll")       			
-[System.Void][System.Reflection.Assembly]::LoadFrom("$Current_Folder\assembly\LiveCharts.dll")      
-[System.Void][System.Reflection.Assembly]::LoadFrom("$Current_Folder\assembly\ControlzEx.dll")     
+[System.Void][System.Reflection.Assembly]::LoadFrom("$Current_Folder\assembly\MahApps.Metro.dll")
+[System.Void][System.Reflection.Assembly]::LoadFrom("$Current_Folder\assembly\MahApps.Metro.IconPacks.dll")
+[System.Void][System.Reflection.Assembly]::LoadFrom("$Current_Folder\assembly\MahApps.Metro.IconPacks.Core.dll")
+[System.Void][System.Reflection.Assembly]::LoadFrom("$Current_Folder\assembly\LiveCharts.Wpf.dll")
+[System.Void][System.Reflection.Assembly]::LoadFrom("$Current_Folder\assembly\LiveCharts.dll")
+[System.Void][System.Reflection.Assembly]::LoadFrom("$Current_Folder\assembly\ControlzEx.dll")
 [System.Void][System.Reflection.Assembly]::LoadFrom("$Current_Folder\assembly\Microsoft.Xaml.Behaviors.dll")
 
 
@@ -45,7 +45,7 @@ $XamlMainWindow.SelectNodes("//*[@Name]") | %{
     try {Set-Variable -Name "$("WPF_"+$_.Name)" -Value $Form.FindName($_.Name) -ErrorAction Stop}
     catch{throw}
     }
- 
+
 Function Get-FormVariables{
 if ($global:ReadmeDisplay -ne $true){Write-host "If you need to reference this display again, run Get-FormVariables" -ForegroundColor Yellow;$global:ReadmeDisplay=$true}
 write-host "Found the following interactable elements from our form" -ForegroundColor Cyan
@@ -57,7 +57,7 @@ get-variable *WPF*
 
 #>
 $WPF_Check.Add_Click({
-	
+
 	if ($WPF_Switch.IsChecked -eq $True)
 	{
 		$WPF_ModulesList.Items.Clear()
@@ -65,10 +65,10 @@ $WPF_Check.Add_Click({
 
 		$Modules=Find-GalleryModule -Author  $Authors
 		$ModulesU = $Modules |  select -Property Title -Unique
-		$Global:Average = 0 
+		$Global:Average = 0
 		$Global:Cpt = 0
 
-		foreach ($item in $ModulesU) 
+		foreach ($item in $ModulesU)
 		{
 		$WPF_ModulesList.Items.Add($item.Title)| Out-Null
 
@@ -83,7 +83,7 @@ $WPF_Check.Add_Click({
 
 
 		$WPF_Numbermodules.Content = "$($ModulesU.count)"
-	
+
 		$Global:Div = "$($ModulesU.count)"
 		Try{[Int]$Content = $Global:Cpt / $Global:Div}
 		catch{}
@@ -98,14 +98,14 @@ $WPF_Check.Add_Click({
 
 
 	}
-	
+
 	if ($WPF_Switch.IsChecked -eq $False)
-	{	
+	{
 		$WPF_GraphOption.Visibility="Collapsed"
 		$WPF_Smodule.Content = $WPF_Authors.SelectedValue
 		Try {
 			$ModuleSelected =   $WPF_Smodule.Content
-			$ModulesS = Find-GalleryModule -Module $ModuleSelected 
+			$ModulesS = Find-GalleryModule -Module $ModuleSelected
 			$WPF_Numbermodules.Content =  $ModulesS.count
 			$WPF_TAverage.Content = $ModulesS[0].Authors
 			$Full = $ModulesS[0].ModuleDownloadCount
@@ -119,7 +119,7 @@ $WPF_Check.Add_Click({
 			$WPF_LastUpdate.Content = $Last
 		}
 		catch {}
-		
+
 		$Pedition = Find-GalleryModule -Module $ModuleSelected  -version LatestVersion
 		$cptCore=0
 		$cptDesktop=0
@@ -138,7 +138,7 @@ $WPF_Check.Add_Click({
 
 		}
 		elseif ($cptDesktop -eq 1) {
-			
+
 			$WPF_Core.Visibility = "Visible"
 
 		}
@@ -215,19 +215,19 @@ $WPF_Graph.Add_Click({
 
 
 	switch ($WPF_Switch.IsChecked) {
-		$true 
-		{  
+		$true
+		{
 			$ModuleSelected =   $WPF_ModulesList.SelectedValue
-			
+
 		}
-		$False 
+		$False
 		{
 			$ModuleSelected =   $WPF_Authors.SelectedValue
 
 		}
 		Default {}
 	}
-		$ModulesS = Find-GalleryModule -Module $ModuleSelected 
+		$ModulesS = Find-GalleryModule -Module $ModuleSelected
 		$Valeurs = $ModulesS | select @{l='Title';e={$_.Version}},@{l='value';e={$_.VersionDownloadCount}}
 		if ($Valeurs.count -ge 15)
 		{
@@ -238,18 +238,18 @@ $WPF_Graph.Add_Click({
 			$Global:Graph = $true
 			$WPF_GraphOption.Visibility="Visible"
 			$WPF_Doughnut.Series = $Global:DoughnutCollection
-	
+
 		}
-		else 
+		else
 		{
 			New-WPFChart -Array $Valeurs
 			$Global:Graph = $true
 			$WPF_GraphOption.Visibility="Visible"
 			$WPF_Doughnut.Series = $Global:DoughnutCollection
-	
+
 
 		}
-	
+
 
 
 })
@@ -267,24 +267,24 @@ $Global:DoughnutCollection = [LiveCharts.SeriesCollection]::new()
         $pieSeries.Values = $chartvalue1
         $pieSeries.Title = $Truc.Title
         $pieSeries.DataLabels = $true
-        $Global:DoughnutCollection.Add($pieSeries)    
+        $Global:DoughnutCollection.Add($pieSeries)
     }
 }
 
 
 
 $WPF_MonBouton.Add_Click({
-	$Theme = [MahApps.Metro.ThemeManager]::DetectTheme($form)	
+	$Theme = [MahApps.Metro.ThemeManager]::DetectTheme($form)
 	$my_theme = ($Theme.BaseColorScheme)
 	If($my_theme -eq "Light")
 		{
-			[MahApps.Metro.ThemeManager]::ChangeThemeBaseColor($form, "Dark");		
-				
+			[MahApps.Metro.ThemeManager]::ChangeThemeBaseColor($form, "Dark");
+
 		}
 	ElseIf($my_theme -eq "Dark")
-		{					
-			[MahApps.Metro.ThemeManager]::ChangeThemeBaseColor($form, "Light");			
-		}		
+		{
+			[MahApps.Metro.ThemeManager]::ChangeThemeBaseColor($form, "Light");
+		}
 })
 
 
@@ -292,7 +292,7 @@ $WPF_ModulesList.Add_SelectionChanged({
 
 	Try {
 		$ModuleSelected =   $WPF_ModulesList.SelectedValue
-		$ModulesS = Find-GalleryModule -Module $ModuleSelected 
+		$ModulesS = Find-GalleryModule -Module $ModuleSelected
 		$Full = $ModulesS[0].ModuleDownloadCount
 		$Project = $ModulesS[0].ProjectUrl
 		$First = $ModulesS[0].Created
@@ -317,7 +317,7 @@ $WPF_ModulesList.Add_SelectionChanged({
 				}
 
 			}
-			
+
 			if ($cptCore -eq 1)
 			{
 
@@ -325,7 +325,7 @@ $WPF_ModulesList.Add_SelectionChanged({
 
 			}
 			elseif ($cptDesktop -eq 1) {
-				
+
 				$WPF_Core.Visibility = "Visible"
 
 			}
@@ -431,7 +431,7 @@ $WPF_Authors.Add_SelectionChanged({
 
 	if ($WPF_Switch.IsChecked -eq $true)
 	{
-		
+
 		$WPF_Core.Visibility = "Collapsed"
 		$WPF_NA.Visibility = "Collapsed"
 		$WPF_Desktop.Visibility = "Collapsed"
@@ -448,15 +448,15 @@ $WPF_Authors.Add_SelectionChanged({
 $WPF_Download.Add_Click({
 
 	switch ($WPF_Switch.IsChecked) {
-		$true 
-		{  
-			Save-Module  -Name $WPF_ModulesList.SelectedValue   -Path "$Global:Current_Folder\Download" 
-			
+		$true
+		{
+			Save-Module  -Name $WPF_ModulesList.SelectedValue   -Path "$Global:Current_Folder\Download"
+
 		}
 
-		$False 
+		$False
 		{
-			Save-Module  -Name $WPF_Smodule.Content -Path "$Global:Current_Folder\Download" 
+			Save-Module  -Name $WPF_Smodule.Content -Path "$Global:Current_Folder\Download"
 
 		}
 		Default {}
@@ -467,8 +467,8 @@ $WPF_FullStats.Add_Click({
 
 
 	switch ($WPF_FullStats.IsChecked) {
-		$True 
-		{ 	
+		$True
+		{
 			$WPF_GGraph.Visibility = "Collapsed"
 			$WPF_GAuthors.Visibility = "Collapsed"
 			$WPF_GStatistic.Visibility = "Collapsed"
@@ -478,15 +478,15 @@ $WPF_FullStats.Add_Click({
 			$WPF_ModuleList.Text=""
 			if ($Global:Graph -eq $true)
 			{
-				try 
-				{				
+				try
+				{
 					$WPF_GGraphOption.Visibility = "Collapsed"
 				}
 				catch{}
 			}
 
 		}
-		$False 
+		$False
 		{
 			#Restore Default view
 			$WPF_GGraph.Visibility = "Visible"
@@ -499,7 +499,7 @@ $WPF_FullStats.Add_Click({
 
 			if ($Global:Graph -eq $true)
 			{
-				try 
+				try
 				{
 					$WPF_GGraphOption.Visibility = "Collapsed"
 				}
@@ -529,7 +529,7 @@ $WPF_GNInfo.Add_Click({
 		$Project_Url = $WPF_New_Module.SelectedItems.ProjectUrl
 
 	if ($Null -ne $Project_Url) {Start $Project_Url }
-	
+
 	else {}
 
 })
@@ -580,13 +580,13 @@ $WPF_GNCheck.Add_Click({
 
 	foreach ($Value in $Global:Modules)
 	{
-		
+
 		$PowerCLI_values = New-Object PSObject
 		$PowerCLI_values = $PowerCLI_values | Add-Member NoteProperty Authors $Value.Authors -passthru
-		$PowerCLI_values = $PowerCLI_values | Add-Member NoteProperty Title $Value.Title -passthru	
-		$PowerCLI_values = $PowerCLI_values | Add-Member NoteProperty Version $Value.Version -passthru	
-		$PowerCLI_values = $PowerCLI_values | Add-Member NoteProperty ProjectUrl $Value.ProjectUrl -passthru	
-		[System.Void]$WPF_New_Module.Items.Add($PowerCLI_values) 
+		$PowerCLI_values = $PowerCLI_values | Add-Member NoteProperty Title $Value.Title -passthru
+		$PowerCLI_values = $PowerCLI_values | Add-Member NoteProperty Version $Value.Version -passthru
+		$PowerCLI_values = $PowerCLI_values | Add-Member NoteProperty ProjectUrl $Value.ProjectUrl -passthru
+		[System.Void]$WPF_New_Module.Items.Add($PowerCLI_values)
 	}
 
 
@@ -604,5 +604,5 @@ $WPF_DCore.Add_Click({
 
 })
 #>
-[System.Void]$Form.ShowDialog() 
+[System.Void]$Form.ShowDialog()
 
