@@ -10,7 +10,7 @@ Note: this script will only run on Windows Operating Systems.
 
 ## Dependencies
 
-The script depends on the module [PSGalleryModule](https://github.com/LxLeChat/PSGalleryModule/issues). If not present on the machine it will be downloaded from the PowerShell Gallery.
+The script depends on the module [PSGalleryModule](https://github.com/LxLeChat/PSGalleryModule/issues). Install with ```powershell Install-Module -Name PSGalleryModule```
 
 ## Usage
 
