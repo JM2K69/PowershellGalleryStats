@@ -41,7 +41,7 @@ $Form=[Windows.Markup.XamlReader]::Load($Reader)
 
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
-$XamlMainWindow.SelectNodes("//*[@Name]") | %{
+$XamlMainWindow.SelectNodes("//*[@Name]") | ForEach-Object{
     try {Set-Variable -Name "$("WPF_"+$_.Name)" -Value $Form.FindName($_.Name) -ErrorAction Stop}
     catch{throw}
     }
@@ -64,7 +64,9 @@ $WPF_Check.Add_Click({
 		$Authors = $WPF_Authors.SelectedValue
 
 		$Modules=Find-GalleryModule -Author  $Authors
-		$ModulesU = $Modules |  select -Property Title -Unique
+
+		$ModulesU = $Modules |  Select-Object -Property Title -Unique
+
 		$Global:Average = 0
 		$Global:Cpt = 0
 
@@ -161,7 +163,7 @@ $WPF_TextBox.Add_TextChanged({
 	If ( ($WPF_TextBox.text.Length -ge 3) -and ($WPF_TextBox.Text -notmatch "^\s{1,}") ){
 			$WPF_Authors.SelectedIndex="0"
 			$WPF_TextBox.Background = [System.Windows.Media.Brushes]::PaleGreen
-			$Modules=Find-GalleryModule -Author $WPF_TextBox.text | select @{l='Authors';e={$_.Authors}} -Unique
+			$Modules=Find-GalleryModule -Author $WPF_TextBox.text | Select-Object @{l='Authors';e={$_.Authors}} -Unique
 			foreach ($item in $Modules) {
 
 			$WPF_Authors.Items.Add($item.Authors)| Out-Null
@@ -228,7 +230,9 @@ $WPF_Graph.Add_Click({
 		Default {}
 	}
 		$ModulesS = Find-GalleryModule -Module $ModuleSelected
-		$Valeurs = $ModulesS | select @{l='Title';e={$_.Version}},@{l='value';e={$_.VersionDownloadCount}}
+
+		$Valeurs = $ModulesS | Select-Object @{l='Title';e={$_.Version}},@{l='value';e={$_.VersionDownloadCount}}
+
 		if ($Valeurs.count -ge 15)
 		{
 			$First = $Valeurs.count - 10
@@ -398,7 +402,7 @@ $WPF_ModuleList.Add_TextChanged({
 	If ( ($WPF_ModuleList.Text.Length -ge 3) -and ($WPF_ModuleList.Text -notmatch "^\s{1,}") ){
 			$WPF_ModuleList.Background = [System.Windows.Media.Brushes]::PaleGreen
 			$Value = $WPF_ModuleList.text + "*"
-			$SModules=Find-GalleryModule -Module $Value | select @{l='Title';e={$_.Title}} -Unique
+			$SModules=Find-GalleryModule -Module $Value | Select-Object @{l='Title';e={$_.Title}} -Unique
 
 			foreach ($item in $SModules) {
 			$WPF_Authors.Items.Add($item.Title)| Out-Null
@@ -539,12 +543,12 @@ $WPF_GNCheck.Add_Click({
 	$WPf_GNInfo.Visibility = 'Visible'
 	if (($WPF_DDesktop.IsChecked -eq $False) -and ($WPF_DCore.IsChecked -eq $False))
 	{
-		$Global:Modules = Find-GalleryModule -Date $WPF_Calendar.SelectedDate.ToShortDateString() -version Latestversion  | Select -Property Authors,Title,Version,ProjectUrl
+		$Global:Modules = Find-GalleryModule -Date $WPF_Calendar.SelectedDate.ToShortDateString() -version Latestversion  | Select-Object -Property Authors,Title,Version,ProjectUrl
 	}
 
 	if ($PreRelease.IsChecked -eq $true )
 	{
-		$Global:Modules = Find-GalleryModule -Date $WPF_Calendar.SelectedDate.ToShortDateString() -version PreRelease  | Select -Property Authors,Title,Version,ProjectUrl
+		$Global:Modules = Find-GalleryModule -Date $WPF_Calendar.SelectedDate.ToShortDateString() -version PreRelease  | Select-Object -Property Authors,Title,Version,ProjectUrl
 	}
 
 
