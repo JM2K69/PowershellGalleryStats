@@ -64,7 +64,9 @@ $WPF_Check.Add_Click({
 		$Authors = $WPF_Authors.SelectedValue
 
 		$Modules=Find-GalleryModule -Author  $Authors
+
 		$ModulesU = $Modules |  Select-Object -Property Title -Unique
+
 		$Global:Average = 0
 		$Global:Cpt = 0
 
@@ -228,7 +230,9 @@ $WPF_Graph.Add_Click({
 		Default {}
 	}
 		$ModulesS = Find-GalleryModule -Module $ModuleSelected
+
 		$Valeurs = $ModulesS | Select-Object @{l='Title';e={$_.Version}},@{l='value';e={$_.VersionDownloadCount}}
+
 		if ($Valeurs.count -ge 15)
 		{
 			$First = $Valeurs.count - 10
